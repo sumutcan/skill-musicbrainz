@@ -1,19 +1,20 @@
-To submit your skill, replace this file with text from 
-https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
+# <img src='https://rawgithub.com/FortAwesome/Font-Awesome/master/advanced-options/raw-svg/solid/brain.svg' card_color='#4092DC' width='50' height='50' style='vertical-align:bottom'/> Music Brains
+A skill that answers questions over LinkedBrainz data.
 
-
-## YOUR SKILL NAME
-One line description of the skill
-
-## Description 
-A more verbose description, including any extra instructions or
-information that didn't fit in the one line.
+## About 
+This skill answers questions like Who sings Let it be? This is just a simple skill to demonstrate the usage of mycroft over linked data.
 
 ## Examples 
-* "Hello world"
-* "Greetings planet earth"
-* "Count up"
-* "Count down"
+* "Who sings Let it be?"
 
 ## Credits 
-Your name
+Umutcan Simsek (@sumutcan)
+
+## Category
+Information
+**Music**
+
+## Tags
+#music
+#generalknowledge
+#questionanswer
