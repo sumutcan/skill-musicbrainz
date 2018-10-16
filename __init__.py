@@ -26,12 +26,12 @@ class MusicBrainzSkill(MycroftSkill):
         self.performer = "I do not know who sings that"
 
     def initialize(self):
-        song_intent = IntentBuilder("SongIntent").require("Who").require("Have").require("Song").require("SongName").build()
+        song_intent = IntentBuilder("SongIntent").require("Who").require("Have").require("Song").require("SongNameTest").build()
         self.register_intent(song_intent, self.handle_who_is_singing_intent)
 
 
     def handle_who_is_singing_intent(self, message):
-        self.speak_dialog("sung.by", data={"performer": message.data["Song"]})
+        self.speak_dialog("sung.by", data={"performer": message.data["SongNameTest"]})
 
 
     # The "stop" method defines what Mycroft does when told to stop during
