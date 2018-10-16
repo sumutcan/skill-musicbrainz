@@ -8,12 +8,14 @@
 # when the skill gets installed later by a user.
 
 from adapt.intent import IntentBuilder
-from mycroft.skills.core import MycroftSkill, intent_handler
+from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import LOG
 from rdflib import *
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
+
+LOGGER = LOG(__name__)
 
 # TODO: Change "Template" to a unique name for your skill
 class MusicBrainzSkill(MycroftSkill):
@@ -23,9 +25,12 @@ class MusicBrainzSkill(MycroftSkill):
         super(MusicBrainzSkill, self).__init__(name="MusicBrainzSkill")
         # Initialize working variables used within the skill.
         self.performer = "I do not know who sings that"
-    
 
-    @intent_handler(IntentBuilder("").require("WhoPerforms"))
+    def initialize(self):
+        song_intent = IntentBuilder("SongIntent").require("WhoPerforms").build()
+        self.register_intent(song_intent, self.handle_who_is_singing_intent)
+
+
     def handle_who_is_singing_intent(self, message):
         self.speak_dialog("sung.by", data={"performer": message.data["song"]})
 
