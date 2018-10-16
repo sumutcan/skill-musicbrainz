@@ -25,7 +25,7 @@ class MusicBrainzSkill(MycroftSkill):
         self.performer = "I do not know who sings that"
     
 
-    @intent_handler(IntentBuilder("").require("Who").require("Sing"))
+    @intent_handler(IntentBuilder("").require("WhoPerforms"))
     def handle_who_is_singing_intent(self, message):
         self.speak_dialog("sung.by", data={"performer": message.data["song"]})
 
