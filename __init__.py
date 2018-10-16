@@ -22,7 +22,7 @@ class MusicBrainzSkill(MycroftSkill):
     def __init__(self):
         super(MusicBrainzSkill, self).__init__(name="MusicBrainzSkill")
         # Initialize working variables used within the skill.
-        self.performer = 0
+        self.performer = "I do not know who sings that"
     
 
     @intent_handler(IntentBuilder("").require("Who").require("Sing"))
