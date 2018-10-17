@@ -10,6 +10,8 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import LOG
+from SPARQLWrapper import SPARQLWrapper, JSON
+from string import Template
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -31,7 +33,26 @@ class MusicBrainzSkill(MycroftSkill):
 
 
     def handle_who_is_singing_intent(self, message):
-        self.speak_dialog("sung.by", data={"performer": message.data["SongNameTest"]})
+        
+        sparql = SPARQLWrapper("http://graphdb.sti2.at:8080/repositories/broker-graph")
+        qt = Template("""PREFIX schema: <http://schema.org/>
+                        select ?name
+                        FROM <https://broker.semantify.it/graph/OH172BSiiG/Wy7u0ZjcOA/2018-10-11-17-20>
+                        where { 
+	                        ?s a schema:MusicRecording.
+                            ?s schema:byArtist ?artist.
+                            ?s schema:name "$name" .
+                            ?artist schema:name ?name 
+                        } """)
+
+        sparql.setQuery(qt.substitute(name=message.data["SongNameTest"]))
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+
+        for result in results["results"]["bindings"]:
+           self.performer = result["name"]["value"]
+
+        self.speak_dialog("sung.by", data={"performer": self.performer})
 
 
     # The "stop" method defines what Mycroft does when told to stop during
